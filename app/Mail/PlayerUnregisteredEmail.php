@@ -31,6 +31,6 @@ class PlayerUnregisteredEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Netcon: Una jugadora ha tenido que dejar tu partida')->view('emails.player-unregistered');
+        return $this->subject('NetCon: Una jugadora ha tenido que dejar tu partida')->view('emails.player-unregistered');
     }
 }

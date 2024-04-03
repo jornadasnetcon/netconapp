@@ -38,6 +38,6 @@ class MessageReceivedEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Netcon: Mensaje Recibido')->view('emails.message-received');
+        return $this->subject('NetCon: Mensaje Recibido')->view('emails.message-received');
     }
 }

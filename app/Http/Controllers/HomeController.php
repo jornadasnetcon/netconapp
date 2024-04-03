@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+       // $this->middleware('auth');
     }
 
     public function base() {
@@ -32,5 +32,23 @@ class HomeController extends Controller
             'user' => auth()->user(),
             'user_timezone' => $user_timezone,
         ]);
+    }
+
+    public function userbar() {
+        return view( 'userbar');
+    }
+
+    public function consent() {
+        return view('consent');
+    }
+
+    public function consent_store() {
+        $user = auth()->user();
+
+        $user->age_consent = 1;
+        $user->minor = 0;
+        $user->save();
+
+        return redirect('home');
     }
 }

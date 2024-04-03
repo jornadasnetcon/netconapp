@@ -13,3 +13,10 @@ yarn-error.log
 *sublime-*
 .phpintel
 /stats
+.DS_Store
+composer.lock
+storage/logs
+sftp-config.json
+storage/framework/views
+storage/framework/sessions
+.well-known/

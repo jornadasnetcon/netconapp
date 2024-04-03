@@ -10,7 +10,7 @@ return [
     /*
      * Logo in admin panel header.
      */
-    'logo' => '<b>Netcon</b> admin',
+    'logo' => '<b>NetCon</b> admin',
 
     /*
      * Mini-logo in admin panel header.
@@ -42,7 +42,7 @@ return [
     /*
      * Use `https`.
      */
-    'secure' => false,
+    'secure' => true,
 
     /*
      * Laravel-admin auth setting.
@@ -68,12 +68,8 @@ return [
      */
     'upload' => [
 
-        'disk' => 'admin',
+        'disk' => 'local',
 
-        'directory' => [
-            'image' => 'images',
-            'file'  => 'files',
-        ],
     ],
 
     /*

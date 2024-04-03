@@ -1,27 +1,23 @@
+#Header set X-Frame-Options ALLOW-FROM https://cyberinsomne.com/
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
-
     RewriteEngine On
-
-    #Force www
-    RewriteCond %{HTTPS} off
-    RewriteRule (.*) https://%{HTTP_HOST}/$1 [NC,L,R]
-    #RewriteCond %{HTTP_HOST} ^netconplay\.com [NC]
-    #RewriteRule ^(.*)$ https://www.netconplay.com/$1 [L,R=301,NC]
-
+#    RewriteCond %{HTTPS} off
+#    RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
-
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+#Force www
+#RewriteCond %{HTTP_HOST} ^netconplay\.com [NC]
+#RewriteRule ^(.*)$ http://www.netconplay.com/$1 [L,R=301,NC]
 </IfModule>

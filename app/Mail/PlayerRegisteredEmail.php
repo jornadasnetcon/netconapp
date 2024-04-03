@@ -38,6 +38,6 @@ class PlayerRegisteredEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('¡Nueva jugadora registrada en tu partida de las Netcon!')->view('emails.player-registered');
+        return $this->subject('¡Nueva jugadora registrada en tu partida de las NetCon!')->view('emails.player-registered');
     }
 }

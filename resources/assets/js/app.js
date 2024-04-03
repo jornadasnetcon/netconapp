@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -6,17 +5,31 @@
  */
 
 require('./bootstrap');
+require('moment');
+require('./bootstrap-datetimepicker.min');
 
-window.Vue = require('vue');
+$(document).ready(function () {
+    $("#legal-accept").on("change", function(event) {
+        if (document.getElementById('legal-accept').checked) {
+            $("#register-button").prop("disabled", false);
+        } else {
+            $("#register-button").prop("disabled", true);
+        }
+    });
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+    var currentDate = "04/08/2020 08:00";
+    var currentDateVal = $('.timepicker').val();
+    if (currentDateVal) {
+        currentDate = new Date(currentDateVal);
+        var month = currentDate.getMonth() + 1;
+        currentDate = month + "/" + currentDate.getDate() + "/" + currentDate.getFullYear() + " " + currentDate.getHours() + ":" + currentDate.getMinutes() + ":00";
+    }
+    $('.timepicker').datetimepicker({
+        locale: 'es',
+        format: 'DD/MM/YYYY HH:mm',
+        date: currentDate,
+        minDate: '2020-04-08',
+        maxDate: '2020-04-13 08:00:00'
+    });
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
-const app = new Vue({
-    el: '#app'
 });

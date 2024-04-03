@@ -1,19 +1,5 @@
 @extends('layouts.app')
 
-@section('scripts')
- <script>
-$(document).ready(function() {
-    $('.timepicker').datetimepicker({
-        locale: 'es',
-        format: 'DD/MM/YYYY HH:mm',
-        defaultDate: '04/17/2019 10:00',
-        minDate: '2019-04-17',
-        maxDate: '2019-04-22'
-    });
-})
- </script>
-@endsection
-
 @section('content')
 
 <div class="container">
@@ -22,14 +8,14 @@ $(document).ready(function() {
 
         <div class="col-md-8 col-md-offset-2">
 
-              <div class="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-heading"><h1>Subir partida</h1></div>
 
                 <div class="panel-body">
 
                     <p><a href="{{route('home')}}">Volver a mi perfil</a></p>
 
-                    <div id="sube-partida" class="account-box">
+                    <div id="sube-partida" class="account-box new-game">
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -40,76 +26,75 @@ $(document).ready(function() {
                             </div>
                         @endif
 
-                        <!-- form -->
+                    <!-- form -->
 
                         {!! Form::open(['url' => route('game_store'), 'files' => true]) !!}
 
-                        <div class="form-group">
+                            <div class="form-group">
                             {!! Form::label('title', 'Título', ['class' => 'control-label']) !!}
-                            <small id="title" class="form-text text-muted">
-                                Nombre de la partida
-                            </small>
+                            <p><small id="title" class="form-text text-muted">Nombre de la partida</small></p>
                             {!! Form::text('title','',['class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('description', 'Descripcion', ['class' => 'control-label']) !!}
-                            <small id="description" class="form-text text-muted">
-                                Información para la partida que pueda interesar a los posibles participantes en la partida: argumento, ambientación, peculiaridades,... Si vas a utilizar un sistema distinto del original del juego aquí es un buen sitio para advertirlo.
-                            </small>
+                            {!! Form::label('description', 'Descripción', ['class' => 'control-label']) !!}
+                            <p><small id="description" class="form-text text-muted">Información para la partida que
+                                    pueda interesar a las posibles participantes en la misma: argumento, ambientación,
+                                    peculiaridades, etc. Si vas a utilizar un sistema distinto del original del juego
+                                    aquí es un buen sitio para advertirlo.</small></p>
                             {!! Form::textarea('description','',['class' => 'form-control','placeholder'=>'Escribe hasta 5000 caracteres']) !!}
 
                         </div>
-
                         <div class="form-group">
-                            {!! Form::label('game_system', 'Sistema de Juego', ['class' => 'control-label']) !!}
+                            {!! Form::label('game_system', 'Sistema de juego', ['class' => 'control-label']) !!}
                             {!! Form::text('game_system','',['class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('platform', 'Plataforma de Juego y Requerimientos', ['class' => 'control-label']) !!}
-                             <small id="platform" class="form-text text-muted">
-                                Informa a tus jugadoras que plataforma usareis para comunicaros durante la partida y cuales son los requerimientos mínimos para jugar. Que usen video, Fantasy Grounds, Roll20, Hangout, Skype, Discord, Telegram, Radiotelegrafo de Hilos, Telepatia Arcana,...
-                            </small>
+                            {!! Form::label('platform', 'Plataforma de juego', ['class' => 'control-label']) !!}
+                            <p><small id="platform" class="form-text text-muted">Informa a tus jugadoras sobre que
+                                    plataforma usaréis para comunicaros durante la partida (Fantasy Grounds, Roll20,
+                                    Hangout, Skype, Discord, Telegram, Radiotelegrafo de Hilos, Telepatia
+                                    Arcana,...)</small></p>
                             {!! Form::text('platform','',['class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group">
                             {!! Form::label('game_image', 'Imagen de la partida', ['class' => 'control-label']) !!}
-                            {!! Form::file('game_image') !!}
+                            {!! Form::file('game_image', ['accept' => 'image/*']) !!}
                         </div>
 
                         <div class="form-group">
                             {!! Form::label('starting_time', 'Fecha y Hora de inicio', ['class' => 'control-label']) !!}
-                             <small id="starting_time" class="form-text text-muted">
-                                Fecha y Hora de inicio para la partida. Asumiremos que la hora corresponde a la zona horaria que has configurado. Recuerda que las jornadas duran del 17 al 21 de Abril. Si la partida va a tener multiples sesiones, esta fecha es solo para la primera.
+                            <small id="starting_time" class="form-text text-muted">
+                                Fecha y Hora de inicio para la partida. Asumiremos que la hora corresponde a la zona
+                                horaria que has configurado. Recuerda que las jornadas duran <?= getenv('EVENT_STRING') ?>. <!--Si
+                                la partida va a tener multiples sesiones, esta fecha es solo para la primera.-->
                             </small>
-                            {!! Form::text('starting_time', null, ['class' => 'form-control timepicker ']) !!}
+                            {!! Form::text('starting_time', getenv('EVENT_START'), ['class' => 'form-control timepicker ']) !!}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('duration_hours', 'Número de Horas de duracion', ['class' => 'control-label']) !!}
-                             <small id="platform" class="form-text text-muted">
-                               Duración aproximada de la sesión en horas
-                            </small>
+                            {!! Form::label('duration_hours', 'Número de horas de duración', ['class' => 'control-label']) !!}
+                            <p><small id="platform" class="form-text text-muted">Duración aproximada de la sesión en
+                                    horas</small></p>
                             {!! Form::number('duration_hours', 1,['class' => 'form-control']) !!}
                         </div>
 
-                        <div class="form-group">
-                            {!! Form::label('sessions_number', 'Numero de Sesiones', ['class' => 'control-label']) !!}
-                            <small id="sessions_number" class="form-text text-muted">
-                               Numero de sesiones de la partida, en la mayoría de los casos sera 1
-                            </small>
+                        <!--<div class="form-group">
+                            {!! Form::label('sessions_number', 'Numero de sesiones', ['class' => 'control-label']) !!}
+                            <p><small id="sessions_number" class="form-text text-muted">Número de sesiones de la
+                                    partida, en la mayoría de los casos sera 1</small></p>
                             {!! Form::number('sessions_number', 1,['class' => 'form-control']) !!}
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
-                            {!! Form::label('maximum_players_number', 'Número Maximo de Jugadores', ['class' => 'control-label']) !!}
+                            {!! Form::label('maximum_players_number', 'Número máximo de jugadoras', ['class' => 'control-label']) !!}
                             {!! Form::number('maximum_players_number', 1,['class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('<strong></strong>eamed', '¿Se emitirá la partida?', ['class' => 'control-label']) !!}
+                            {!! Form::label('streamed', '¿Se emitirá la partida?', ['class' => 'control-label']) !!}
                             Si {!! Form::checkbox('streamed', 'streamed') !!}
                         </div>
 
@@ -118,32 +103,46 @@ $(document).ready(function() {
                             Si {!! Form::checkbox('beginner_friendly', 'beginner_friendly') !!}
                         </div>
 
-                        <div class="form-group">
-                            {!! Form::label('safety_tools', '¿Usa Herramientas de Seguridad?', ['class' => 'control-label']) !!}
-                            <small class="form-text text-muted">
-                                Por ejemplo: Lineas y Velos, Carta X, etc. <a href="https://netconplay.com/guia-de-buenas-practicas/herramientas-en-la-mesa/" target="_blank">Mas info</a>
-                            </small>
-                            Si {!! Form::checkbox('safety_tools', 'safety_tools') !!}
-                        </div>
+                            <div class="form-group">
+                                {!! Form::label('safety_tools', 'Usa Herramientas de Seguridad', ['class' => 'control-label']) !!}
+                                <small class="form-text text-muted">
+                                    Por ejemplo: Lineas y Velos, Carta X, etc. <a
+                                            href="https://netconplay.com/guia-de-buenas-practicas/herramientas-en-la-mesa/"
+                                            target="_blank">Mas info</a>
+                                </small>
+                                {!! Form::select('safety_tools', array(
+                                    "" => "-- Herramientas de seguridad --",
+                                    "Tarjeta X" => "Tarjeta X",
+                                    "Líneas y Velos" => "Líneas y Velos",
+                                    "Script Change" => "Script Change",
+                                    "Hojas de Consentimiento para jugadoras" => "Hojas de Consentimiento para jugadoras",
+                                    "Técnica Luxton" => "Técnica Luxton",
+                                    "Puertas abiertas" => "Puertas abiertas",
+                                    "CATS" => "CATS",
+                                    "Señales de apoyo" => "Señales de apoyo",
+                                    "Flor de apoyo" => "Flor de apoyo",
+                                    "Chequeo durante partida" => "Chequeo durante partida",
+                                    "Otras" => "Otras",
+                                ), null, ['class' => 'form-control']) !!}
+                            </div>
+
+                            <div class="form-group">
+                                {!! Form::label('content_warning', 'Aviso de Contenido Sensible', ['class' => 'control-label']) !!}
+                                <small class="form-text text-muted">
+                                    Contenido o temas de la partida de los que creas necesario avisar a las jugadoras: violencia sexual, dismorfia corporal, etc.
+                                </small>
+                                {!! Form::text('content_warning','',['class' => 'form-control']) !!}
+                            </div>
 
                         <div class="form-group">
-                            {!! Form::label('platform', 'Aviso de Contenido Sensible', ['class' => 'control-label']) !!}
-                             <small class="form-text text-muted">
-                                Contenido o temas de la partida de los que creas necesario avisar a las jugadoras: violencia sexual, dismorfia corporal, etc.
-                            </small>
-                            {!! Form::text('content_warning','',['class' => 'form-control']) !!}
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::label('stream_channel', 'Canal de Emision', ['class' => 'control-label']) !!}
-                            <small id="stream_channel" class="form-text text-muted">
-                               Si va a ser emitida indicanos la url del canal de emisión
-                            </small>
+                            {!! Form::label('stream_channel', 'Canal de emisión', ['class' => 'control-label']) !!}
+                            <p><small id="stream_channel" class="form-text text-muted">Si va a ser emitida indícanos la
+                                    url del canal de emisión</small></p>
                             {!! Form::text('stream_channel','',['class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group">
-                        {!! Form::submit('Enviar partida',['class' => 'btn btn-primary']) !!}
+                            {!! Form::submit('Enviar partida',['class' => 'btn btn-primary']) !!}
                         </div>
 
                         {!! Form::close() !!}

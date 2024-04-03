@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Log;
 
 class User extends Authenticatable
 {
@@ -14,13 +15,15 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
+    protected $admins = [1,4,5,551,555,557];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'provider', 'provider_id'
+        'name', 'email', 'password', 'about', 'provider', 'provider_id'
     ];
 
     /**
@@ -44,6 +47,10 @@ class User extends Authenticatable
         return $this->hasMany(Game::class, 'owner_id');
     }
 
+    public function talks() {
+        return $this->hasMany(Talk::class, 'owner_id');
+    }
+
     public function prices() {
         return $this->hasMany(Price::class, 'user_id');
     }
@@ -56,4 +63,36 @@ class User extends Authenticatable
         return $this->belongsToMany(Game::class, 'game_waitlist', 'waitlist_id', 'game_id');
     }
 
+    public function favGames() {
+        return $this->belongsToMany(Game::class, 'game_player_fav', 'player_id', 'game_id')->withPivot('priority');
+    }
+
+    public function isAdmin() {
+    	return in_array($this->id, $this->admins);
+    }
+
+    public function isTester() {
+        $testers = explode(',', getenv('AUTHORIZED_ORGANIZATION_EMAILS'));
+        return in_array($this->email, $testers);
+    }
+
+    public function isBusy($game) {//return true;
+        $start = $game->starting_time;
+        $end = date('Y-m-d H:i:s', strtotime($game->starting_time."+".$game->duration_hours."hours"));
+        //$signup
+        foreach ($this->signupGames()->where('game_id', '!=', $game->id)->get() as $registered) {
+            $regStart = $registered->starting_time;
+            $regEnd = date('Y-m-d H:i:s', strtotime($registered->starting_time."+".$registered->duration_hours."hours"));
+            if ($start >= $regStart && $start <= $regEnd) {
+                return $registered;
+            } elseif ($end >= $regStart && $end <= $regEnd) {
+                return $registered;
+            } if ($regStart >= $start && $regStart <= $end) {
+                return $registered;
+            } elseif ($regEnd >= $start && $regEnd <= $end) {
+                return $registered;
+            }
+        }
+        return false;
+    }
 }

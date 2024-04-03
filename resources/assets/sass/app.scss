@@ -1,9 +1,66 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+.panel-default {
+    border: 0;
+}
+
+.checkbox {
+    text-align: center;
+}
+#panel-login {
+    padding: 10px;
+    border: 0;
+    img {
+        max-width: 250px;
+    }
+    h3, p {
+        text-align: center;
+        padding-bottom: 20px;
+        margin-bottom: 0px;
+    }
+}
+
+
+table.listado {
+
+    tr {
+        font-size: 95%;
+    }
+
+    img.image_game {
+        border: solid 1px #ccc;
+        padding: 2px;
+        margin: 2px;
+        box-shadow: 0px 0px 5px #ccc;
+        -moz-box-shadow: 0px 0px 5px #ccc;
+        -webkit-box-shadow: 0px 0px 5px #ccc;
+    }
+}
+
+footer {
+    .footer {
+        background-color: #222;
+        padding: 15px;
+        height: 60px;
+        text-align: center;
+    }
+    .blockquote-footer {
+
+    }
+    a {
+        color: #FFF;
+        &:hover {
+            color: #FFF;
+            text-decoration: underline;
+        }
+    }
+}
+

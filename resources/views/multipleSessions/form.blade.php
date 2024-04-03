@@ -1,19 +1,5 @@
 @extends('layouts.app')
 
-@section('scripts')
- <script>
-$(document).ready(function() {
-    $('.timepicker').datetimepicker({
-        locale: 'es',
-        format: 'DD/MM/YYYY HH:mm',
-        defaultDate: '04/17/2019 10:00',
-        minDate: '2019-04-17',
-        maxDate: '2019-04-22'
-    });
-})
- </script>
-@endsection
-
 @section('content')
 
 <div class="container">
@@ -39,14 +25,14 @@ $(document).ready(function() {
                         {!! Form::text('starting_time_1', $game->starting_time->setTimezone($user->timezone)->format('d/m/Y H:i'), ['class' => 'form-control', 'disabled' => 'disabled']) !!}
                     </div>
 
-                    @for ($i = 2; $i <= $game->sessions_number; $i++)
+                   <!-- @for ($i = 2; $i <= $game->sessions_number; $i++)
 
                         <div class="form-group">
                             {!! Form::label('starting_time_' . $i, 'Fecha y Hora de Inicio Partida ' . $i, ['class' => 'control-label']) !!}
                             {!! Form::text('starting_time_' . $i, null, ['class' => 'form-control timepicker ']) !!}
                         </div>
 
-                    @endfor
+                    @endfor-->
 
                     <div class="form-group">
                         {!! Form::submit('Enviar partidas',['class' => 'btn btn-primary']) !!}

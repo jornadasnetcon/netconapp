@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  console.log('hello');
   $('#games-table').DataTable({
     ajax: {
       url: '/games/ajax',

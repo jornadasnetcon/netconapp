@@ -1,0 +1,197 @@
+/* Lista de partidas 2023 */
+
+a {
+	color:#008f8e !important;
+	font-weight:600;
+}
+
+.btn-primary {
+	color: #fff!important;
+}
+
+.meta_info p {
+	margin-bottom: 5px;
+	font-size:14px;
+	color: #777;
+	font-weight:400;
+}
+
+p {
+	font-weight:500;
+	color:#333;
+	margin-bottom:20px
+}
+
+.row.games a {
+	color: #333;
+	transition: 0.3s all ease;
+}
+
+.row.games .col-12 {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.row.games .card {
+	min-height: 400px;
+	border: 0;
+    box-shadow: -5px 5px 26px #d7d7d7;
+    border-radius: 8px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: 0.3s all ease;
+}
+
+.row.games .card-body {
+	padding: 25px;
+	background-color: white; 
+	margin-top: 120px;
+}
+
+.row.games .card:hover {
+	transform: scale(1.05);
+}
+
+.row.games a:hover {
+	text-decoration: none;
+}
+
+.row.games .game_title {
+	color: #333;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+.row.games .button-container {
+	bottom: 25px;
+    position: absolute;
+}
+
+.row.games .button-container button {
+	border: 0;
+	border-radius: 8px;
+	padding: 5px 15px;
+	border: 1px solid #006F6F;
+	background-color:#07B4B4;
+	color:#fff;
+	font-weight:500;
+}
+
+.row.games .button-container button:hover {
+	border: 1px solid #006F6F;
+	background-color:#006F6F;
+	color:#fff;
+}
+
+.row.games .h-card {
+	min-height: 120px;
+	flex-direction: row;
+}
+.row.games .h-card .card-body {
+	margin-top: 0px;
+	margin-left: 120px;
+}
+
+.row.games  .h-card .button-container {
+	position: relative;
+	margin-top: 25px;
+	bottom: 0;
+}
+
+.prioridad {
+	color: white;
+    background: #006F6F;
+    border-radius: 50px;
+    height: fit-content;
+    display: flex;
+    align-self: normal;
+    margin: 60px -60px -60px 60px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.controllers {
+	display: flex;
+	flex-direction: column;
+	padding: 0px 10px;
+    justify-content: center;
+	background:#ffffff;
+	border-radius:0px 6px 6px 0px;
+
+	
+}
+.row.games > div:first-of-type .moveUp,
+.row.games > div:last-of-type .moveDown {
+ 	display: none;
+}
+.row.games a.moveUp,
+.row.games a.moveDown {
+	display: block;
+	margin: 0 auto;
+	font-size: 24px;
+	color: red;
+}
+
+.row.games a.moveUp i,
+.row.games a.moveDown i {
+	background: re;
+}
+
+.row.games a.moveUp:hover i,
+.row.games a.moveDown:hover i {
+	background: red;
+	color: black;
+}
+
+@media(max-width: 767px) {
+	.card.h-card {
+		background-image: none!important;
+	}
+
+	.row.games .h-card .card-body {
+		margin-left: 0;
+	}
+
+	.h-card .prioridad {
+		position: relative;
+    	margin: 0;
+    	align-self: center;
+	}
+
+	.h-card .owner, .h-card .date {
+		display: none;
+	}
+
+	.h-card .game_title {
+		font-size: 14px;
+    	line-height: 1;
+	}
+
+	.h-card .meta_info p {
+		font-size: 12px;
+		line-height: 1;
+		margin-top: 10px;
+	}
+}
+
+@media (min-width: 576px){
+	.container, .container-sm {
+	    max-width: 1140px;
+	}
+}
+
+@media (min-width: 768px){
+	.col-md-offset-3 {
+	    margin-left: 25%;
+	}
+}
+
+.btn-danger {
+	color: white!important;
+}
+
+#app {
+	padding: 20px;
+}

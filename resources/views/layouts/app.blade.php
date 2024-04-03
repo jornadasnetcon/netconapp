@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
+<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,18 +10,22 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}">
+
     <!-- Styles -->
-    <link href="{{ asset('css/app.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/netcon.css') }}" rel="stylesheet">
-
-    <?php /*<link rel="stylesheet" href="/libraries/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/libraries/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />*/ ?>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/2023.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+    {{--<link href="{{ asset('css/savagecon.css') }}" rel="stylesheet">--}}
+    <script src="{{ asset('js/iframeResizer.contentWindow.min.js') }}" type="text/javascript"></script>
     @yield('style')
 </head>
 <body>
     <div id="app">
         @include('cookieConsent::index')
+        @if (config('app.menu', false))
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -56,13 +60,16 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{route('game_list')}}">Lista de Partidas </a>
+                                        <a href="{{route('game_list')}}">Listado de partidas </a>
                                     </li>
                                     <li>
-                                        <a href="https://netconplay.com/calendario-de-partidas-2019/">Calendario de Partidas </a>
+                                        <a href="{{route('talk_list')}}">Listado de charlas</a>
                                     </li>
+                                    {{--<li>--}}
+                                        {{--<a href="http://www.viruk.com/netconcal/">Calendario de Partidas </a>--}}
+                                    {{--</li>--}}
                                     <li>
-                                        <a href="http://netconplay.com/contacto" title="Ponte en contacto con nosotros" target="_blank">Contacto</a>
+                                        <a href="{{ env("CONTACT_URL", '#') }}" title="Ponte en contacto con nosotros" target="_blank">Contacto</a>
                                     </li>
                                     <li>
                                         <a href="{{ url('/login') }}">
@@ -82,20 +89,24 @@
                                         <a href="{{route('home')}}">Mi perfil </a>
                                     </li>
                                     <li>
-                                        <a href="{{route('game_list')}}">Lista de Partidas </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://netconplay.com/calendario-de-partidas-2019/">Calendario de Partidas </a>
+                                        <a href="{{route('game_list')}}">Listado de partidas </a>
                                     </li>
 
-                                    @if (env('GAME_REGISTRATION_ENABLED', false))
+                                    <li>
+                                        <a href="{{route('talk_list')}}">Listado de charlas</a>
+                                    </li>
+                                    {{--<li>--}}
+                                        {{--<a href="http://www.viruk.com/netconcal/">Calendario de Partidas </a>--}}
+                                    {{--</li>--}}
+
+                                    @if ($user->isTester() || env('GAME_REGISTRATION_ENABLED', false))
                                     <li>
                                         <a href="{{route('game_post')}}">Nueva partida </a>
                                     </li>
                                     @endif
 
                                     <li>
-                                        <a href="http://netconplay.com/contacto" title="Ponte en contacto con nosotros" target="_blank">Contacto</a>
+                                        <a href="{{ env('CONTACT_URL', '#') }}" title="Ponte en contacto con nosotros" target="_blank">Contacto</a>
                                     </li>
 
                                     <li>
@@ -116,25 +127,19 @@
                 </div>
             </div>
         </nav>
+        @endif
 
         @yield('content')
 
-        <footer>
-            <a href="http://netconplay.com/politica-de-privacidad-de-datos/" target="_blank">Política de privacidad</a>
+        <footer class="footer">
+            <a href="{{ env('LEGAL_URL', '#') }}" target="_blank">Politica de privacidad</a>
         </footer>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Scripts -->
-    <?php /*<script src="{{ asset('js/app.js') }}"></script
-    <script type="text/javascript" src="/libraries/jquery/jquery.min.js"></script>*/ ?>
-    <script type="text/javascript" src="/libraries/moment/min/moment.min.js"></script>
-    <?php /*<script type="text/javascript" src="/libraries/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/libraries/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>*/ ?>
-
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/2023.js') }}" type="text/javascript"></script>
+    <!--<script src="{{ asset('js/2024.js') }}" type="text/javascript"></script>-->
     @yield('scripts')
 </body>
 </html>

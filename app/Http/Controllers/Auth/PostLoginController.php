@@ -16,7 +16,7 @@ class PostLoginController extends Controller
         $default_timezone = config('app.timezone');
         return view('auth.post-login', [
             'name' => $user->name,
-            'timezone_list' => array_combine($timezone_list, $timezone_list), 
+            'timezone_list' => array_combine($timezone_list, $timezone_list),
             'default_timezone' => $default_timezone
         ]);
     }
@@ -31,15 +31,13 @@ class PostLoginController extends Controller
                         return $fail($attribute.' no es valido.');
                     }
                 }
-            ],
-            'name' => 'required|max:100'
+            ]
         ];
 
         Validator::make($request->all(), $validationRules)->validate();
 
         $user = auth()->user();
 
-        $user->name = $request->get('name');
         $user->timezone = $request->get('timezone');
         $user->registration_complete = true;
 
