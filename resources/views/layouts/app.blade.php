@@ -1,4 +1,4 @@
-<?php<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
@@ -11,11 +11,11 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/netcon.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="/libraries/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/libraries/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <?php /*<link rel="stylesheet" href="/libraries/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/libraries/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />*/ ?>
 
     @yield('style')
 </head>
@@ -59,7 +59,7 @@
                                         <a href="{{route('game_list')}}">Lista de Partidas </a>
                                     </li>
                                     <li>
-                                        <a href="http://www.viruk.com/netconcal/">Calendario de Partidas </a>
+                                        <a href="https://netconplay.com/calendario-de-partidas-2019/">Calendario de Partidas </a>
                                     </li>
                                     <li>
                                         <a href="http://netconplay.com/contacto" title="Ponte en contacto con nosotros" target="_blank">Contacto</a>
@@ -85,7 +85,7 @@
                                         <a href="{{route('game_list')}}">Lista de Partidas </a>
                                     </li>
                                     <li>
-                                        <a href="http://www.viruk.com/netconcal/">Calendario de Partidas </a>
+                                        <a href="https://netconplay.com/calendario-de-partidas-2019/">Calendario de Partidas </a>
                                     </li>
 
                                     @if (env('GAME_REGISTRATION_ENABLED', false))
@@ -120,16 +120,20 @@
         @yield('content')
 
         <footer>
-            <a href="http://netconplay.com/politica-de-privacidad-de-datos/" target="_blank">Politica de privacidad</a>
+            <a href="http://netconplay.com/politica-de-privacidad-de-datos/" target="_blank">Política de privacidad</a>
         </footer>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script type="text/javascript" src="/libraries/jquery/jquery.min.js"></script>
+    <?php /*<script src="{{ asset('js/app.js') }}"></script
+    <script type="text/javascript" src="/libraries/jquery/jquery.min.js"></script>*/ ?>
     <script type="text/javascript" src="/libraries/moment/min/moment.min.js"></script>
-    <script type="text/javascript" src="/libraries/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/libraries/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <?php /*<script type="text/javascript" src="/libraries/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/libraries/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>*/ ?>
 
     @yield('scripts')
 </body>

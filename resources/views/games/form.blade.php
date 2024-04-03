@@ -6,7 +6,9 @@ $(document).ready(function() {
     $('.timepicker').datetimepicker({
         locale: 'es',
         format: 'DD/MM/YYYY HH:mm',
-        defaultDate: '04/17/2019 07:06'
+        defaultDate: '04/17/2019 10:00',
+        minDate: '2019-04-17',
+        maxDate: '2019-04-22'
     });
 })
  </script>
@@ -82,7 +84,7 @@ $(document).ready(function() {
                              <small id="starting_time" class="form-text text-muted">
                                 Fecha y Hora de inicio para la partida. Asumiremos que la hora corresponde a la zona horaria que has configurado. Recuerda que las jornadas duran del 17 al 21 de Abril. Si la partida va a tener multiples sesiones, esta fecha es solo para la primera.
                             </small>
-                            {!! Form::input('datetime-local', 'starting_time', null, ['class' => 'form-control timepicker ']) !!}
+                            {!! Form::text('starting_time', null, ['class' => 'form-control timepicker ']) !!}
                         </div>
 
                         <div class="form-group">
@@ -107,7 +109,7 @@ $(document).ready(function() {
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('streamed', '¿Se emitirá la partida?', ['class' => 'control-label']) !!}
+                            {!! Form::label('<strong></strong>eamed', '¿Se emitirá la partida?', ['class' => 'control-label']) !!}
                             Si {!! Form::checkbox('streamed', 'streamed') !!}
                         </div>
 

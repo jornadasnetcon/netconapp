@@ -31,7 +31,16 @@ class GamesController extends Controller {
 			->orderBy('starting_time', 'asc');
 
 		if ($request->has('date')) {
-			$query->whereDate('starting_time', new Carbon($request->get('date')));
+			$date = new Carbon($request->get('date'), env('EVENT_TIMEZONE'));
+			$startOfDate = (new Carbon($date))->startOfDay();
+			$endOfDate = (new Carbon($date))->endOfDay();
+			$query
+				->where('starting_time', '>=', $startOfDate->toDateTimeString())
+				->where('starting_time', '<', $endOfDate->toDateTimeString());
+		}
+
+		if ($request->has('owner_id')) {
+			$query->where('owner_id', (int) $request->get('owner_id'));
 		}
 
 		$games = $query->paginate(10);
@@ -42,6 +51,7 @@ class GamesController extends Controller {
 			'user' => $user,
 			'games' => $games,
 			'user_timezone' => $user_timezone,
+			'date' => $request->get('date'),
 		]);
 	}
 
@@ -51,7 +61,7 @@ class GamesController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		if (!env('GAME_SIGNUP_ENABLED', 'false')) {
+		if (!env('GAME_REGISTRATION_ENABLED', 'false')) {
 			return redirect()->route('home');
 		}
 
@@ -83,8 +93,8 @@ class GamesController extends Controller {
 			'duration_hours' => 'integer|min:1|required',
 			'sessions_number' => 'integer|min:1|required',
 			'maximum_players_number' => 'integer|min:1|required',
-			'stream_channel' => 'string:250|nullable',
-			'content_warning' => 'string:250|nullable',
+			'stream_channel' => 'string|max:250|nullable',
+			'content_warning' => 'string|max:250|nullable',
 		];
 
 		Validator::make($request->all(), $validationRules, $messages)->validate();
@@ -96,11 +106,22 @@ class GamesController extends Controller {
 
 		$game = new Game();
 
+		$startingTime = Carbon::createFromFormat('d/m/Y H:i', $request->get('starting_time'), $user->timezone)->setTimezone(env('EVENT_TIMEZONE'));
+		$eventStart = Carbon::createFromFormat('d/m/Y H:i', env('EVENT_START'), env('EVENT_TIMEZONE'));
+		$eventEnd = Carbon::createFromFormat('d/m/Y H:i', env('EVENT_END'), env('EVENT_TIMEZONE'));
+
+		if ($startingTime < $eventStart || $eventEnd < $startingTime) {
+			$error = \Illuminate\Validation\ValidationException::withMessages([
+				'starting_time' => ['Debes introducir una hora de inicio entre 17/04/2019 08:00 GMT+1 y 21/04/2019 21:00 GMT+1'],
+			]);
+			throw $error;
+		}
+
 		$game->title = $request->get('title');
 		$game->description = $request->get('description');
 		$game->game_system = $request->get('game_system');
 		$game->platform = $request->get('platform');
-		$game->starting_time = Carbon::createFromFormat('d/m/Y H:i', $request->get('starting_time'), $user->timezone);
+		$game->starting_time = $startingTime;
 		$game->duration_hours = $request->get('duration_hours');
 		$game->sessions_number = $request->get('sessions_number');
 		$game->maximum_players_number = $request->get('maximum_players_number');
@@ -145,6 +166,10 @@ class GamesController extends Controller {
 		$user_timezone = config('app.timezone');
 
 		$registration_open = env('GAME_SIGNUP_ENABLED', false);
+
+		if (!$game->isApproved() && (!$user || !$is_owner)) {
+			abort(404);
+		}
 
 		$is_partial = $game->maximum_players_number === 0;
 
