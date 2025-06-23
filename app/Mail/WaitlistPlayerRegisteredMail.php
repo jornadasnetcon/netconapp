@@ -35,6 +35,6 @@ class WaitlistPlayerRegisteredMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('¡Has entrado en una de tus partidas de la reseva en las NetCon!')->view('emails.waitlist-player-registered');
+        return $this->subject('¡Has entrado en una de tus partidas de la reseva en las '.env('BRAND_NAME','NetCon').'!')->view('emails.waitlist-player-registered');
     }
 }

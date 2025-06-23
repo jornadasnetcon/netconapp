@@ -6,14 +6,14 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-defaultl" id="panel-login">
                 <div class="panel-heading">
-                    <h3>BIENVENIDA A LAS NETCON {{ date('Y' )}}</h3>
+                    <h3>BIENVENIDA A LAS {{ env('BRAND_NAME', 'Netcon')}} {{ date('Y' )}}</h3>
                     <p>
-                        <img src="/img/logo-netcon.png">
+                        <img src="{{env('BRAND_LOGO_URL', '/img/logo-netcon.png')}}">
                     </p>
                 </div>
                 <div class="panel-body">
                      <p>
-                        Bienvenida a la <strong>plataforma de gestión de partidas de la <a href="https://www.netconplay.es" title="Visitar netconplay.es" target="_blank">NetCon</a>.</strong> Para registrar tus partidas o acceder a las que ya has subido solo tienes que loguearte con tu cuenta.
+                        Bienvenida a la <strong>plataforma de gestión de partidas de las <a href="{{ env('BRAND_URL', 'https://www.netconplay.com')}}" title="Visitar {{ env('BRAND_URL', 'https://www.netconplay.com')}}" target="_blank">{{ env('BRAND_NAME', 'Netcon')}}</a>.</strong> Para registrar tus partidas o acceder a las que ya has subido solo tienes que loguearte con tu cuenta.
                     </p>
                     @if (env('DISABLE_LOGIN', false))
                         <p>Acceso temporalmente desactivado</p>
@@ -76,7 +76,7 @@
                             </a>
                         </p>
                     </form>
-                    @endif
+                    @endif 
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@
 
                         <p>Para participar en las {{ config('app.name', 'Laravel') }} necesitas ser mayor de edad. Si eres menor de edad por
                             favor,
-                            contacta con la organización en <a href="mailto:netconcerouno@gmail.com">netconcerouno@gmail.com</a>
+                            contacta con la organización en <a href="mailto:{{ env('BRAND_ADMIN_EMAIL', 'netconcerouno@gmail.com') }}">{{ env('BRAND_ADMIN_EMAIL', 'netconcerouno@gmail.com') }}</a>
                             y te explicaremos cómo proceder para poder disfrutar de las jornadas {{ config('app.name', 'Laravel') }}
                         </p>
 

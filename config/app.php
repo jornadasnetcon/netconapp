@@ -233,4 +233,5 @@ return [
         'Date' => Jenssegers\Date\Date::class,
     ],
 
+    'menu' => env('MENU_ENABLE', false),
 ];

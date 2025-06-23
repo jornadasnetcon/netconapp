@@ -1,6 +1,6 @@
 ¡Hola {{$user->name}}!
 
-<p>Se ha realizado el sorteo de las NetCon y te ha correspondido un premio. ¡Enhorabuena!</p>
+<p>Se ha realizado el sorteo de las env('BRAND_NAME', 'NetCon') y te ha correspondido un premio. ¡Enhorabuena!</p>
 
 <p>Para saber qué premio te ha correspondido y cómo reclamarlo entra a <a href="{{route('home')}}">tu perfil</a> en la página de las NetCon.</p>
 

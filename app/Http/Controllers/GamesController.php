@@ -594,7 +594,11 @@ class GamesController extends Controller
     {
         //exit;
         //$semilla = $this->argument('semilla');
-        $semilla = "91a22a8a933af95cb73db91ab2ea6398";
+        $user = auth()->user();
+        if (!$user->isAdmin()) {
+            return redirect()->route('home');
+        }
+        $semilla = env('BRAND_SEMILLA', "426a872c5b7e8f8e421bb55de9bf7df5");
         $users = User::orderBy('id', 'ASC')->get();
         $colaSorteo = [];
 
@@ -651,7 +655,7 @@ class GamesController extends Controller
                                     //Hay movimiento en la cola, por tanto podemos seguir iterando
                                     $sorteo = true;
                                     $asignado = true;
-                                } elseif ($game->isFull() && !$game->isRegistered($user) && !$game->isWaitlisted($user) ) {
+                                } elseif ($game->isFull() && !$game->isRegistered($user) && !$game->isWaitlisted($user) && $game->canRegisterToWaitlist($user) ) {
                                     $this->swaitlist($user, $game);
                                     Log::debug('Encolado jugador '.$user->id.' '.$user->name.' en partida '.$game->id.' '.$game->title.'. Buscando otra partida');
                                 } elseif ($user->isBusy($game)) {
@@ -676,6 +680,10 @@ class GamesController extends Controller
 
                                     if ($game->isOwner($user)) {
                                         Log::debug('Jugador propietario, seguimos buscando');
+                                    }
+
+                                    if ($user->isBanned($game)) {
+                                        Log::debug('Jugador baneado de esta partida por la administración');
                                     }
 
                                     /*if ($game->isPartial()) {

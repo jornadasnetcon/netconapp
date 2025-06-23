@@ -159,6 +159,10 @@ nav.navbar a.dropdown-toggle {
 	margin-bottom: 0px;
 }
 
+#panel-login h3 {
+	text-transform: uppercase;
+}
+
 /*Formulario*/
 
 #sube-partida small {

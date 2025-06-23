@@ -37,6 +37,6 @@ class GameApprovedEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('NetCon: Partida aprobada')->view('emails.game-approved');
+        return $this->subject(env('BRAND_NAME','NetCon').': Partida aprobada')->view('emails.game-approved');
     }
 }

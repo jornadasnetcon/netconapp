@@ -26,7 +26,7 @@
     <div id="app">
         @include('cookieConsent::index')
         @if (config('app.menu', false))
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top" style="background: white;">
             <div class="container">
                 <div class="navbar-header">
 

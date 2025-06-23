@@ -46,7 +46,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $this->performLogout($request);
-        return view('auth.logout');
+        return redirect($this->redirectTo);
     }
 
     /**

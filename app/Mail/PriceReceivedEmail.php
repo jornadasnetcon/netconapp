@@ -34,6 +34,6 @@ class PriceReceivedEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('NetCon: ¡Te ha tocado un premio!')->view('emails.price-received');
+        return $this->subject(env('BRAND_NAME','NetCon').': ¡Te ha tocado un premio!')->view('emails.price-received');
     }
 }

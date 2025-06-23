@@ -15,7 +15,13 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-    protected $admins = [1,2,3,4,7,18,23];
+    protected $admins = [1,2,3,4,5];
+
+    //21 perez.hermida@gmail.com 
+    //76 80 102 103
+    protected $bans = [
+                        '21' => ['76', '80', '102', '103'],
+                      ];
 
     /**
      * The attributes that are mass assignable.
@@ -92,6 +98,13 @@ class User extends Authenticatable
             } elseif ($regEnd >= $start && $regEnd <= $end) {
                 return $registered;
             }
+        }
+        return false;
+    }
+
+    public function isBanned ($game) {
+        if (isset($this->bans[$this->id]) && in_array($game->id, $this->bans[$this->id])) {
+            return true;
         }
         return false;
     }

@@ -47,7 +47,7 @@ class AsignacionPlazas extends Command
         $users = User::orderBy('id', 'ASC')->get();
         $colaSorteo = [];
 
-        Log::debug('Construimos la cola con la semilla... '.$semilla);
+        Log::debug('Construimos la cola con la semilla... ' . $semilla);
 
         foreach ($users as $user) {
             //Generamos lista de partidas y la convertimos en array para poder ir eliminando sin problemas
@@ -96,7 +96,7 @@ class AsignacionPlazas extends Command
                                     //Hay movimiento en la cola, por tanto podemos seguir iterando
                                     $sorteo = true;
                                     $asignado = true;
-                                } elseif ($game->isFull()) {
+                                } elseif ($game->isFull() && !$game->isRegistered($user) && !$game->isWaitlisted($user) && $game->canRegisterToWaitlist($user) ) {
                                     $this->waitlist($user, $game);
                                     Log::debug('Encolado jugador '.$user->id.' '.$user->name.' en partida '.$game->id.' '.$game->title.'. Buscando otra partida');
                                 } elseif ($user->isBusy($game)) {
@@ -121,6 +121,10 @@ class AsignacionPlazas extends Command
 
                                     if ($game->isOwner($user)) {
                                         Log::debug('Jugador propietario, seguimos buscando');
+                                    }
+
+                                    if ($user->isBanned($game)) {
+                                        Log::debug('Jugador baneado de esta partida por la administración');
                                     }
 
                                     /*if ($game->isPartial()) {

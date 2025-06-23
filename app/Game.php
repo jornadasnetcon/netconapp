@@ -148,6 +148,10 @@ class Game extends Model
             return false;
         }
 
+        if ($user->isBanned($this)) {
+            return false;
+        }
+
         return true;
     }
 
@@ -185,6 +189,10 @@ class Game extends Model
             return false;
         }
 
+        if ($user->isBanned($this)) {
+            return false;
+        }
+
         return false;
     }
 
@@ -211,6 +219,10 @@ class Game extends Model
         }
 
         if ($user->isBusy($this)) {
+            return false;
+        }
+
+        if ($user->isBanned($this)) {
             return false;
         }
 
