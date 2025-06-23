@@ -9,7 +9,7 @@
                 <div class="panel-heading">
                     @if ($user)
                         <a href="{{route('home')}}">Volver a mi perfil</a> |
-                        @if ($user->isAdmin())
+                        @if ($user->isAdmin() || $game->isOwner($user))
                             <a href="{{route('game_edit', ['game' => $game], true)}}">Editar</a> |
                         @endif
                         @if (!$game->isApproved() && $user->isAdmin())

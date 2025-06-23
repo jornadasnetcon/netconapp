@@ -29,7 +29,7 @@
                         <div class="alert alert-success" role="alert">
                                 <h3>Premios Ganados</h3>
                                 <p>
-                                    Para reclamar tu premio, envíanos un correo a la direccion <b>info@netconplay.com</b> con el título <b>"NetCon Premio"</b>. En el contenido pon el <b>código</b> del premio y, si es físico, <b>la dirección</b> a la que deseas que se te envíe.
+                                    Para reclamar tu premio, envíanos un correo a la direccion <b>info@netconplay.es</b> con el título <b>"NetCon Premio"</b>. En el contenido pon el <b>código</b> del premio y, si es físico, <b>la dirección</b> a la que deseas que se te envíe.
                                 </p>
                                 <table style="margin-top: 10px;" class="table table-condensed listado">
                                     <thead>

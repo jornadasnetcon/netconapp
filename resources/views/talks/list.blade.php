@@ -31,11 +31,11 @@
                                 {!! Form::label('filters[date]', 'Fecha', ['class' => 'control-label']) !!}
                                 {!! Form::select('filters[date]', array(
                                     "" => "-- Selecciona un día --",
-                                    '2024-03-27' => 'Miércoles',
-                                    '2024-03-28' => 'Jueves',
-                                    '2024-03-29' => 'Viernes',
-                                    '2024-03-30' => 'Sábado',
-                                    '2024-03-31' => 'Domingo'
+                                    '2025-04-16' => 'Miércoles',
+                                    '2025-04-17' => 'Jueves',
+                                    '2025-04-18' => 'Viernes',
+                                    '2025-04-19' => 'Sábado',
+                                    '2025-04-20' => 'Domingo'
                                 ), $filters["date"], ['class' => 'form-control']) !!}
                             </div>
                             <div class="form-group">

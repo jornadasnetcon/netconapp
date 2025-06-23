@@ -13,8 +13,11 @@
                 </div>
                 <div class="panel-body">
                      <p>
-                        Bienvenida a la <strong>plataforma de gestión de partidas de la <a href="https://www.netconplay.com" title="Visitar netconplay.com" target="_blank">NetCon</a>.</strong> Para registrar tus partidas o acceder a las que ya has subido solo tienes que loguearte con tu cuenta.
+                        Bienvenida a la <strong>plataforma de gestión de partidas de la <a href="https://www.netconplay.es" title="Visitar netconplay.es" target="_blank">NetCon</a>.</strong> Para registrar tus partidas o acceder a las que ya has subido solo tienes que loguearte con tu cuenta.
                     </p>
+                    @if (env('DISABLE_LOGIN', false))
+                        <p>Acceso temporalmente desactivado</p>
+                    @else 
                     <form class="form-horizontal" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 
@@ -73,6 +76,7 @@
                             </a>
                         </p>
                     </form>
+                    @endif
                 </div>
             </div>
         </div>

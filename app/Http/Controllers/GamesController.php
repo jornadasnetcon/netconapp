@@ -592,9 +592,9 @@ class GamesController extends Controller
     /* HACK PARA SORTEO */
     public function sorteo()
     {
-        exit;
+        //exit;
         //$semilla = $this->argument('semilla');
-        $semilla = "7baa3d398257768cea4505019b2a0e70";
+        $semilla = "91a22a8a933af95cb73db91ab2ea6398";
         $users = User::orderBy('id', 'ASC')->get();
         $colaSorteo = [];
 
@@ -623,6 +623,10 @@ class GamesController extends Controller
 
         //Arrancamamos el sorteo
         Log::debug('Arrancamos el sorteo...');
+        //Fila 0
+        $game = Game::find(62);
+        $user = User:: find(148);
+        $this->sregister($user, $game);
         /*try {*/
             while($sorteo) {
                 $sorteo = false;
@@ -725,9 +729,9 @@ class GamesController extends Controller
             }
         });
 
-        if (env('GAME_SIGNUP_ENABLED', 'false')) {
-            //event(new PlayerRegistered($user, $game));
-        }
+        //if (env('GAME_SIGNUP_ENABLED', 'false')) {
+            event(new PlayerRegistered($user, $game));
+        //}
     }
 
     private function swaitlist($user, $game) {
